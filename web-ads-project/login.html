@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - Dollar Survey</title>
+  <link rel="stylesheet" href="login-style.css" />
+</head>
+<body>
+  <div class="login-container">
+    <div class="logo-container">
+  <img src="images/a6ee2559-b2a4-46be-a0ca-e71a28189c82.png" alt="Dollar Survey Logo" class="logo-image" />
+</div>
+    <h1>Dollar Survey</h1>
+    <p class="subtitle"><h4>Welcome Back!</h4></p>
+
+    <input type="text" id="email" placeholder="Email or Phone Number" required />
+    <input type="password" id="password" placeholder="Password" required />
+
+    <button class="login-btn" onclick="login()">Login</button>
+<p class="anonymous-link">
+  <a href="anonymous.html">Continue Anonymously</a>
+</p>
+
+<img src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png"
+     alt="Sign in with Google"
+     onclick="googleLogin()"
+     style="cursor: pointer; width: 200px; border-radius: 40px;" />
+
+    <p class="terms-text">By continuing, you agree to the <a href="terms$privacy.html">Terms</a> and <a href="terms$privacy.html">Privacy Policy</a>.</p>
+
+    <p class="register-link">Don't have an account? <a href="register.html">Register</a></p>
+  </div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+  import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDnq2364tMuRPbrjjHmUfFUTjWZC2BmIS4",
+    authDomain: "dollar-survey-60fe7.firebaseapp.com",
+    projectId: "dollar-survey-60fe7",
+    storageBucket: "dollar-survey-60fe7.appspot.com",
+    messagingSenderId: "293471697208",
+    appId: "1:293471697208:web:664863f09e830e420c69cd"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
+
+  // ✅ Login with email and password
+  window.login = async function () {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      console.log("Login successful:", userCredential.user);
+      alert("Login successful!");
+      window.location.href = "homepage.html";
+    } catch (error) {
+      alert("Login failed: " + error.message);
+    }
+  };
+
+  // ✅ Login with Google
+  window.googleLogin = async function () {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      console.log("Google login successful:", user.email);
+      alert("Logged in with Google!");
+      window.location.href = "homepage.html";
+    } catch (error) {
+      console.error("Google login failed:", error);
+      alert("Google login failed: " + error.message);
+    }
+  };
+</script>
+
+  
+</body>
+</html>

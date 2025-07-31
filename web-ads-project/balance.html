@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Balance</title>
+  <link rel="stylesheet" href="balance-style.css">
+</head>
+
+<body>
+  <button class="go-back-btn" onclick="goBack()">⬅ Back</button>
+  
+<div class="balance-container">
+  <h1>Refer & Donate</h1>
+  <div class=>
+  <div id="referral-content" style="display: none; margin-top: 20px;">
+    <label for="referralLink">Your Referral Link:</label>
+    <div class="referral-bar">
+      <input type="text" id="referralLink" readonly />
+      <button onclick="copyReferralLink()">Share</button>
+    </div>
+  </div>
+</div>
+<div class="referral-link-box">
+  <input type="text" id="userReferralLink" value="https://dollarsurvey.netlify" readonly>
+  <button onclick="shareReferral()">📤 Share</button>
+</div>
+<div class="donation-section">
+  <h2>Support Dollar Survey 💚</h2>
+  <p>
+    This project is built with love and dedication to help users earn while sharing their opinions.  
+    If you find value in our platform and would like to support the development, hosting, and future upgrades — consider donating.  
+    Your support keeps us going stronger 💪. Thank You
+  </p>
+  <button onclick="donateNow()">Donate</button>
+</div>
+
+
+<script>
+    function shareReferral() {
+    const link = document.getElementById('userReferralLink').value;
+
+    if (navigator.share) {
+      navigator.share({
+        title: 'Join & Earn with My Referral Link',
+        text: 'Sign up and start earning!',
+        url: link
+      }).catch((err) => console.log('Share failed:', err));
+    } else {
+      // fallback: copy to clipboard
+      navigator.clipboard.writeText(link);
+      alert('Referral link copied!');
+    }
+  }
+  
+</script>
+<script>
+    function goBack() {
+      window.history.back();
+    }
+  </script>
+</body>
+</html>
